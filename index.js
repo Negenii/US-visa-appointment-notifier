@@ -79,14 +79,14 @@ const notifyMe = async (topic, earliestDate) => {
       break;
     case "newSlotAvailable":
       subject = `New date available: ${formattedDate}`;
-      body = `Trying to reschedule...`;
+      body = `New date available: ${formattedDate} | Trying to reschedule...`;
       priority = 1;
       logStep(`Sending a notification: There is a slot on ${formattedDate}`);
 
       break;
     case "rescheduleFailure":
       subject = `Auto rescheduling failed`;
-      body = `Try to reschedule manually ${formattedDate}`;
+      body = `Try to reschedule manually ${formattedDate}: https://ais.usvisa-info.com/${siteInfo.COUNTRY_CODE}/niv/schedule/${siteInfo.SCHEDULE_ID}/continue_actions`;
       priority = 0;
       logStep(`Sending a notification for reschedule failure ${formattedDate}`);
 
