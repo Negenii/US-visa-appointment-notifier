@@ -79,14 +79,14 @@ const notifyMe = async (topic, earliestDate) => {
       break;
     case "newSlotAvailable":
       subject = `New date available: ${formattedDate}`;
-      body = `Trying to reschedule...`;
+      body = `New date available: ${formattedDate} | Trying to reschedule...`;
       priority = 1;
       logStep(`Sending a notification: There is a slot on ${formattedDate}`);
 
       break;
     case "rescheduleFailure":
       subject = `Auto rescheduling failed`;
-      body = `Try to reschedule manually ${formattedDate}`;
+      body = `Try to reschedule manually ${formattedDate}: https://ais.usvisa-info.com/${siteInfo.COUNTRY_CODE}/niv/schedule/${siteInfo.SCHEDULE_ID}/continue_actions`;
       priority = 0;
       logStep(`Sending a notification for reschedule failure ${formattedDate}`);
 
@@ -133,7 +133,9 @@ const reschedule = async (page, earliestDate) => {
   try {
     const targetPage = page;
     await page.goto(siteInfo.RESCHEDULE_URL);
-    await delay(500);
+    
+    await delay(5000);
+
     const element = await page.waitForSelector(selectors.APPOINTMENT_DATE_FIELD, targetPage, {
       timeout,
       visible: true
@@ -184,7 +186,7 @@ const reschedule = async (page, earliestDate) => {
         var theDay = await page.waitForSelector(selectors.DATE_PICKER_THE_DAY);
 
         var dayNumber = await page.$eval(selectors.DATE_PICKER_THE_DAY, element => element.innerHTML);
-
+        dayNumber = dayNumber < 10 ? `0${dayNumber}` : dayNumber
 
         var month = await page.$eval(selectors.DATE_PICKER_AVAILABLE_DAY, element => element.getAttribute("data-month"));
         month++; //because they start from 0

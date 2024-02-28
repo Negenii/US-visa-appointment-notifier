@@ -30,9 +30,9 @@ module.exports = {
     FACILITY_ID: process.env.FACILITY_ID,
 
     get APPOINTMENTS_JSON_URL(){
-      // return process.env.NODE_ENV === 'prod' ?  `https://ais.usvisa-info.com/${this.COUNTRY_CODE}/niv/schedule/${this.SCHEDULE_ID}/appointment/days/${this.FACILITY_ID}.json?appointments%5Bexpedite%5D=false` : url.pathToFileURL('./test_data.json')
+      return process.env.NODE_ENV === 'prod' ?  `https://ais.usvisa-info.com/${this.COUNTRY_CODE}/niv/schedule/${this.SCHEDULE_ID}/appointment/days/${this.FACILITY_ID}.json?appointments%5Bexpedite%5D=false` : url.pathToFileURL('./test_data.json')
       
-      return `https://ais.usvisa-info.com/${this.COUNTRY_CODE}/niv/schedule/${this.SCHEDULE_ID}/appointment/days/${this.FACILITY_ID}.json?appointments%5Bexpedite%5D=false`
+      // return `https://ais.usvisa-info.com/${this.COUNTRY_CODE}/niv/schedule/${this.SCHEDULE_ID}/appointment/days/${this.FACILITY_ID}.json?appointments%5Bexpedite%5D=false`
     },
 
     get LOGIN_URL () {
