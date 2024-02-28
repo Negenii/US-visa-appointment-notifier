@@ -133,7 +133,9 @@ const reschedule = async (page, earliestDate) => {
   try {
     const targetPage = page;
     await page.goto(siteInfo.RESCHEDULE_URL);
-    await delay(500);
+    
+    await delay(5000);
+
     const element = await page.waitForSelector(selectors.APPOINTMENT_DATE_FIELD, targetPage, {
       timeout,
       visible: true
@@ -184,7 +186,7 @@ const reschedule = async (page, earliestDate) => {
         var theDay = await page.waitForSelector(selectors.DATE_PICKER_THE_DAY);
 
         var dayNumber = await page.$eval(selectors.DATE_PICKER_THE_DAY, element => element.innerHTML);
-
+        dayNumber = dayNumber < 10 ? `0${dayNumber}` : dayNumber
 
         var month = await page.$eval(selectors.DATE_PICKER_AVAILABLE_DAY, element => element.getAttribute("data-month"));
         month++; //because they start from 0
